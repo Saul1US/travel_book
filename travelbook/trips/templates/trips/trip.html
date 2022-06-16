@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="list-group">
+    <h2>{{ trip }}</h2>
+    {% for p in trip.places.all %}
+      <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" href="{% url 'place_details' p.id %}">
+        <span class="flex-grow-1">{{ p }}</span>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock content %}
