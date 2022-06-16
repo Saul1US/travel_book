@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
 from django.views import generic
 from .models import Trip, Place, PlaceImage
 
@@ -10,10 +11,6 @@ def trip(request, id):
     trip = get_object_or_404(Trip, id=id)
     return render(request, 'trips/trip.html', {'trip':trip})
 
-# def trip_list_view(request):
-#     places = Place.objects.all()
-#     return render(request, 'trips/trip_list.html', {'places':places})
- 
 def place_details_view(request, id):
     place = get_object_or_404(Place, id=id)
     photos = PlaceImage.objects.filter(place=place)
@@ -31,7 +28,13 @@ class PlaceListView(generic.ListView):
     context_object_name = 'places'
     template_name = 'trips/place_list.html'
 
-
-class PlaceDetailView(generic.DetailView):
-    model = Place
-    template_name = 'trips/place_details.html'
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.GET.get('search'):
+            search = self.request.GET.get('search')
+            queryset = queryset.filter(
+                Q(name__icontains=search) |
+                Q(description__icontains=search) |
+                Q(trip__title__istartswith=search)
+            )
+        return queryset
