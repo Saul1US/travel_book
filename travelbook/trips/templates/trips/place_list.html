@@ -12,8 +12,9 @@
           </a>
         </div>
         <div class="card-body">
-          <h4 class="card-title">{{p.name}}</h4>
-          <p class="card-text">{{p.description}}</p>
+          <h4 class="card-title">{{ p.name }}</h4>
+          <p class="card-text">{{ p.date }}</p>
+          <p class="card-text">{{ p.description }}</p>
           <a href="{% url 'place_details' p.id %}" class="btn btn-primary btn-md">Details</a>
         </div>
       </div>

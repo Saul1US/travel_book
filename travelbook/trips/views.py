@@ -4,8 +4,13 @@ from django.views import generic
 from .models import Trip, Place, PlaceImage
 
 
+def index(request):
+    return render(request, 'trips/index.html')
+
 def home(request):
-    return render(request, 'trips/home.html')
+    trips_count = Trip.objects.all().count()
+    places_count = Place.objects.all().count()
+    return render(request, 'trips/home.html', {'trips_count':trips_count, 'places_count':places_count})
 
 def trip(request, id):
     trip = get_object_or_404(Trip, id=id)

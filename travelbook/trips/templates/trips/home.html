@@ -1,11 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Trips made</h3>
-<h3>Places visited</h3>
-<div>
-    <a class="nav-link" href="{% url 'trip_list' %}">Trip list</a>
-</div>
+<h3>Trips made: {{ trips_count }}</h3>
+<h3>Places visited: {{ places_count }}</h3>
 <hr>
 <h3>Planning new trip?</h3>
 {% endblock content %}
