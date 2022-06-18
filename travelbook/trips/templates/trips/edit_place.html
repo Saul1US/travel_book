@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="FieldWrapper">
+    <h4>Add description</h4>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.content }}<br/>
+        <h4>Place Name: </h4>{{ form.name }}
+        <h4>Trip: </h4>{{ form.trip }}
+        <h4>Date: </h4>{{ form.date }}
+        <h4>Picture: </h4>{{ form.image }}
+        <div class="form-group">
+            <button type="submit" class="btn btn-success"> 
+            <span class="glyphicon glyphicon-ok"></span> Edit
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

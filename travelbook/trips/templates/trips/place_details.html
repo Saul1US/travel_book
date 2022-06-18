@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <div>
     <h1 class="card-title">{{place.trip.title}}</h1>
     <h4 class="card-title">{{place.name}}</h4>
-    <p class="card-text">{{place.description}}</p>
+        <p>{{ place.content | safe }}</p>
     <br>
     {% for p in photos %}
         <img src="{{p.images.url}}">

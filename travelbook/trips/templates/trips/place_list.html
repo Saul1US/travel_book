@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div>
+  <a href="{% url 'add_place' %}">Add place</a>
+</div>
 <div class="row row-cols-1 row-cols-md-2">
     {% for p in places %}
     <div class="col mb-4">
@@ -14,8 +17,9 @@
         <div class="card-body">
           <h4 class="card-title">{{ p.name }}</h4>
           <p class="card-text">{{ p.date }}</p>
-          <p class="card-text">{{ p.description }}</p>
+          <p class="card-text">{{ p.content | safe }}</p>
           <a href="{% url 'place_details' p.id %}" class="btn btn-primary btn-md">Details</a>
+          <a href="{% url 'edit_place' p.id %}" class="btn btn-primary btn-md">Edit</a>
         </div>
       </div>
     </div>

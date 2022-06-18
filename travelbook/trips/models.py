@@ -1,11 +1,12 @@
 from django.db import models
+from django.conf import settings
 from tinymce.models import HTMLField
 from PIL import Image
 
 
 class Trip(models.Model):
     title = models.CharField(max_length=250)
- 
+    
     def __str__(self):
         return self.title
 
@@ -14,9 +15,8 @@ class Place(models.Model):
     name = models.CharField(max_length=250)
     date = models.DateField(null=True, blank=True)
     trip = models.ForeignKey(Trip, default=None, on_delete=models.CASCADE, related_name='places')
-    description = models.TextField()
-    # description = HTMLField(blank=True, null=True)
-    image = models.FileField(blank=True)
+    content = HTMLField(blank=True, null=True)
+    image = models.ImageField(blank=True)
  
     def __str__(self):
         return self.name
@@ -38,3 +38,4 @@ class PlaceImage(models.Model):
 
     def __str__(self):
         return self.place.name
+

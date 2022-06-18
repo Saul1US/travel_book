@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.db.models import Q
 from django.views import generic
 from .models import Trip, Place, PlaceImage
+from .forms import PlaceDescriptionForm
 
 
 def index(request):
@@ -20,6 +22,11 @@ def place_details_view(request, id):
     place = get_object_or_404(Place, id=id)
     photos = PlaceImage.objects.filter(place=place)
     return render(request, 'trips/place_details.html', {'place':place, 'photos':photos, })
+
+# def place_entry_view(request, id):
+#     place = get_object_or_404(Place, id=id)
+#     descr = PlaceEntry.objects.filter(place=place)
+#     return render(request, 'trips/place_entry.html', {'place':place, 'descr':descr, })
 
 
 class TripListView(generic.ListView):
@@ -43,3 +50,49 @@ class PlaceListView(generic.ListView):
                 Q(trip__title__istartswith=search)
             )
         return queryset
+
+
+class PlaceCreateView(generic.CreateView):
+    model = Place
+    template_name = 'trips/place_entry.html'
+    form_class = PlaceDescriptionForm
+    success_url = reverse_lazy('home')
+
+
+class AddPlaceView(generic.CreateView):
+    model = Place
+    template_name = 'trips/add_place.html'
+    fields = '__all__'
+    # form_class = PlaceDescriptionForm
+    success_url = reverse_lazy('home')
+
+
+class EditPlaceView(generic.UpdateView):
+    model = Place
+    template_name = 'trips/edit_place.html'
+    fields = '__all__'
+    pk_url_kwarg = 'pk'
+    success_url = reverse_lazy('home')
+
+    # def get_initial(self):
+    #     initial = super().get_initial()
+    #     initial['trip'] = self.request.GET.get('trip_id')
+    #     initial['name'] = self.request.GET.get('name')
+    #     return initial
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     trip_id = self.request.GET.get('trip_id')
+    #     if trip_id:
+    #         context['trip'] = get_object_or_404(Trip, id=trip_id)
+    #     name = self.request.GET.get('name')
+    #     if name:
+    #         context['name'] = get_object_or_404(Trip, id=name)
+    #     return context
+
+    # def form_valid(self, form):
+    #     form.instance.place = self.object
+    #     # form.instance.reviewer = self.request.user
+    #     form.save()
+    #     return super(PlaceCreateView, self).form_valid(form)
+    
