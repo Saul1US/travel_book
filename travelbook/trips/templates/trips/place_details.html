@@ -10,7 +10,7 @@
     {% for p in photos %}
         <img src="{{p.images.url}}">
     {% endfor %}
-
 </div>
+<a href="{% url 'delete_place' place.id %}" class="btn btn-primary btn-md">Delete</a>
  
 {% endblock content %}

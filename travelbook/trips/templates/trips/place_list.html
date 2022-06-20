@@ -9,10 +9,12 @@
     <div class="col mb-4">
       <div class="card">
         <div class="view overlay">
+          {% if p.image %}
           <img class="card-img-top" src="{{ p.image.url }}" alt="">
           <a href="#!">
             <div class="mask rgba-white-slight"></div>
           </a>
+          {% endif %}
         </div>
         <div class="card-body">
           <h4 class="card-title">{{ p.name }}</h4>
@@ -20,6 +22,7 @@
           <p class="card-text">{{ p.content | safe }}</p>
           <a href="{% url 'place_details' p.id %}" class="btn btn-primary btn-md">Details</a>
           <a href="{% url 'edit_place' p.id %}" class="btn btn-primary btn-md">Edit</a>
+          <a href="{% url 'delete_place' p.id %}" class="btn btn-primary btn-md">Delete</a>
         </div>
       </div>
     </div>

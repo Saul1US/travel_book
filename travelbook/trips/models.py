@@ -16,7 +16,7 @@ class Place(models.Model):
     date = models.DateField(null=True, blank=True)
     trip = models.ForeignKey(Trip, default=None, on_delete=models.CASCADE, related_name='places')
     content = HTMLField(blank=True, null=True)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True, null=True)
  
     def __str__(self):
         return self.name

@@ -74,6 +74,13 @@ class EditPlaceView(generic.UpdateView):
     pk_url_kwarg = 'pk'
     success_url = reverse_lazy('home')
 
+
+class DeletePlaceView(generic.DeleteView):
+    model = Place
+    template_name = 'trips/delete_place.html'
+    pk_url_kwarg = 'pk'
+    success_url = reverse_lazy('place_list')
+
     # def get_initial(self):
     #     initial = super().get_initial()
     #     initial['trip'] = self.request.GET.get('trip_id')
