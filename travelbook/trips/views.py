@@ -86,7 +86,7 @@ class AddImagesView(generic.CreateView):
     template_name = 'trips/add_images.html'
     fields = '__all__'
     pk_url_kwarg = 'pk'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('place_list')
 
     # def get_initial(self):
     #     initial = super().get_initial()
