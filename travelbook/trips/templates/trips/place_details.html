@@ -11,6 +11,7 @@
         <img src="{{p.images.url}}">
     {% endfor %}
 </div>
+<a href="{% url 'add_images' place.id %}" class="btn btn-primary btn-md">Add Images</a>
 <a href="{% url 'delete_place' place.id %}" class="btn btn-primary btn-md">Delete</a>
  
 {% endblock content %}

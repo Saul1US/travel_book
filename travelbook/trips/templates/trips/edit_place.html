@@ -3,7 +3,7 @@
 {% block content %}
 <div class="FieldWrapper">
     <h4>Add description</h4>
-    <form method="post" action="">
+    <form method="post" action="" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.content }}<br/>
         <h4>Place Name: </h4>{{ form.name }}

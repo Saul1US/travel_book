@@ -72,14 +72,21 @@ class EditPlaceView(generic.UpdateView):
     template_name = 'trips/edit_place.html'
     fields = '__all__'
     pk_url_kwarg = 'pk'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('place_list')
 
 
 class DeletePlaceView(generic.DeleteView):
     model = Place
     template_name = 'trips/delete_place.html'
-    pk_url_kwarg = 'pk'
     success_url = reverse_lazy('place_list')
+
+
+class AddImagesView(generic.CreateView):
+    model = PlaceImage
+    template_name = 'trips/add_images.html'
+    fields = '__all__'
+    pk_url_kwarg = 'pk'
+    success_url = reverse_lazy('home')
 
     # def get_initial(self):
     #     initial = super().get_initial()
