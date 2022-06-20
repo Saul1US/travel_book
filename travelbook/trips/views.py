@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.views import generic
 from .models import Trip, Place, PlaceImage
-from .forms import PlaceDescriptionForm
+from .forms import PlaceDescriptionForm, PlaceImageForm
 
 
 def index(request):
@@ -18,15 +18,21 @@ def trip(request, id):
     trip = get_object_or_404(Trip, id=id)
     return render(request, 'trips/trip.html', {'trip':trip})
 
-def place_details_view(request, id):
-    place = get_object_or_404(Place, id=id)
-    photos = PlaceImage.objects.filter(place=place)
-    return render(request, 'trips/place_details.html', {'place':place, 'photos':photos, })
-
-# def place_entry_view(request, id):
+# def place_details_view(request, id):
 #     place = get_object_or_404(Place, id=id)
-#     descr = PlaceEntry.objects.filter(place=place)
-#     return render(request, 'trips/place_entry.html', {'place':place, 'descr':descr, })
+#     photos = PlaceImage.objects.filter(place=place)
+#     return render(request, 'trips/place_details.html', {'place':place, 'photos':photos, })
+
+
+class PlaceDetailView(generic.DetailView):
+    model = Place
+    template_name = 'trips/place_details.html'
+    # form_class = PlaceImageForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['photos'] = PlaceImage.objects.filter(place=self.object)
+        return context
 
 
 class TripListView(generic.ListView):
@@ -63,8 +69,10 @@ class AddPlaceView(generic.CreateView):
     model = Place
     template_name = 'trips/add_place.html'
     fields = '__all__'
-    # form_class = PlaceDescriptionForm
-    success_url = reverse_lazy('home')
+    
+    def form_valid(self, form):
+        place = form.save()
+        return redirect('place_details', id=place.id)
 
 
 class EditPlaceView(generic.UpdateView):
@@ -88,6 +96,11 @@ class AddImagesView(generic.CreateView):
     pk_url_kwarg = 'pk'
     success_url = reverse_lazy('place_list')
 
+    # def form_valid(self, form):
+    #     place = form.save()
+    #     return redirect('place_details', id=place.id)
+
+
     # def get_initial(self):
     #     initial = super().get_initial()
     #     initial['trip'] = self.request.GET.get('trip_id')
@@ -103,10 +116,4 @@ class AddImagesView(generic.CreateView):
     #     if name:
     #         context['name'] = get_object_or_404(Trip, id=name)
     #     return context
-
-    # def form_valid(self, form):
-    #     form.instance.place = self.object
-    #     # form.instance.reviewer = self.request.user
-    #     form.save()
-    #     return super(PlaceCreateView, self).form_valid(form)
     
