@@ -13,14 +13,13 @@ class PlaceDescriptionForm(forms.ModelForm):
             'name': forms.HiddenInput(), 
             'trip': forms.HiddenInput(), 
             'date': forms.HiddenInput(), 
-            'image': forms.HiddenInput(), 
         }
 
 class PlaceImageForm(forms.ModelForm):
+    # images=forms.ImageField(label='Upload image')
     class Meta:
         model = PlaceImage
-        fields = ('place', 'images', )
-        widgets = {
-            'place': forms.HiddenInput(),
-            'images': forms.HiddenInput(),
-        }
+        fields = ('images', )
+        # widgets = {
+        #     'place': forms.HiddenInput(),
+        # }

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block content %}
+{% load crispy_forms_tags %}
 
 <div>
     <h1 class="card-title">{{place.trip.title}}</h1>
@@ -13,13 +13,11 @@
 </div>
 <a href="{% url 'add_images' place.id %}" class="btn btn-primary btn-md">Add Images</a>
 <a href="{% url 'delete_place' place.id %}" class="btn btn-primary btn-md">Delete</a>
-<div class="FieldWrapper">
-    <h4>Add images</h4>
+<div>
     <form method="post" action="" enctype="multipart/form-data">
         {% csrf_token%}
-        <h4>Place: </h4>{{ form.place }}
-        <h4>Pictures: </h4>{{ form.images }}
-        <input type="submit" value="Save" class="btn btn-primary">
+        <h4>Add Pictures: </h4>{{form|crispy}}
+        <button class="btn btn-dark my-4" type="submit">Submit</button>
     </form>
 </div>
  
