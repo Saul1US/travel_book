@@ -3,22 +3,21 @@
 {% load crispy_forms_tags %}
 
 <div>
-    <h1 class="card-title">{{place.trip.title}}</h1>
-    <h4 class="card-title">{{place.name}}</h4>
+    <h1 class="card-title">{{ place.trip.title }}</h1>
+    <h4 class="card-title">{{ place.name }}</h4>
         <p>{{ place.content | safe }}</p>
-    <br>
     {% for p in photos %}
         <img src="{{p.images.url}}">
     {% endfor %}
 </div>
-<a href="{% url 'add_images' place.id %}" class="btn btn-primary btn-md">Add Images</a>
-<a href="{% url 'delete_place' place.id %}" class="btn btn-primary btn-md">Delete</a>
-<div>
+<div class="FieldWrapper">
     <form method="post" action="" enctype="multipart/form-data">
         {% csrf_token%}
-        <h4>Add Pictures: </h4>{{form|crispy}}
-        <button class="btn btn-dark my-4" type="submit">Submit</button>
+        {{ form | crispy }}
+        <button class="btn btn-dark my-2" type="submit">Add image</button>
     </form>
 </div>
+<br>
+<a href="{% url 'delete_place' place.id %}" class="btn btn-danger btn-md">Delete Place</a>
  
 {% endblock content %}

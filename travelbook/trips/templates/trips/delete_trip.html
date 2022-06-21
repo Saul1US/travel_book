@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container py-3">
+        <h1>Delete trip</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                Do you really want to delete {{ object.trip }}?
+            </fieldset>
+            <fieldset class="form-group">
+                <button class="btn btn-danger" type="submit">Yes</button>
+                <a class="btn btn-success" href="{% url 'trip_list' %}">No</a>
+            </fieldset>
+        </form>
+    </div>
+{% endblock content %}
+    
+{% block title %}{% endblock title %}

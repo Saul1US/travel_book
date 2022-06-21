@@ -1,8 +1,17 @@
 from django import forms
 from django.conf import settings
 from tinymce.widgets import TinyMCE
-from .models import Place, PlaceImage
+from .models import Trip, Place, PlaceImage
 
+
+class TripForm(forms.ModelForm):
+    # title = forms.Textarea()
+    class Meta:
+        model = Trip
+        fields = ('title', )
+        # widgets = {
+        #     'title': forms.HiddenInput(),
+        # }
 
 class PlaceDescriptionForm(forms.ModelForm):
     class Meta:
@@ -16,10 +25,6 @@ class PlaceDescriptionForm(forms.ModelForm):
         }
 
 class PlaceImageForm(forms.ModelForm):
-    # images=forms.ImageField(label='Upload image')
     class Meta:
         model = PlaceImage
         fields = ('images', )
-        # widgets = {
-        #     'place': forms.HiddenInput(),
-        # }

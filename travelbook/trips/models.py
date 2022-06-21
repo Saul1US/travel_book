@@ -6,7 +6,7 @@ from PIL import Image
 
 
 class Trip(models.Model):
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=250, null=False, blank=False)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='trips', null=True, blank=True)
 
     def __str__(self):
@@ -14,9 +14,9 @@ class Trip(models.Model):
 
 
 class Place(models.Model):
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, null=False, blank=False)
     date = models.DateField(null=True, blank=True)
-    trip = models.ForeignKey(Trip, default=None, on_delete=models.CASCADE, related_name='places')
+    trip = models.ForeignKey(Trip, null=False, blank=False, on_delete=models.CASCADE, related_name='places')
     content = HTMLField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
  

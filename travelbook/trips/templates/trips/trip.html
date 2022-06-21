@@ -8,5 +8,10 @@
         <span class="flex-grow-1">{{ p }}</span>
       </a>
     {% endfor %}
-  </div>
+</div>
+<br>
+<a href="{% url 'delete_trip' trip.id %}" class="btn btn-danger btn-md">Delete Trip</a>
+<br>
+<a href="{% url 'add_place' %}" class="btn btn-primary btn-md">Add Place</a>
+
 {% endblock content %}
