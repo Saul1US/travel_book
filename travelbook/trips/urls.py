@@ -11,6 +11,7 @@ urlpatterns = [
     path('add_place/', views.AddPlaceView.as_view(), name='add_place'),
     path('edit_place/<int:pk>/', views.EditPlaceView.as_view(), name='edit_place'),
     path('delete_place/<int:pk>/', views.DeletePlaceView.as_view(), name='delete_place'),
-    path('add_images/<int:pk>/', views.AddImagesView.as_view(), name='add_images'),
+    # path('add_images/<int:pk>/', views.AddImagesView.as_view(), name='add_images'),
     path('place_details/<int:pk>/', views.PlaceDetailView.as_view(), name='place_details'),
+    path('my_place_list/', views.UserPlaceListView.as_view(), name='my_place_list'),
 ]

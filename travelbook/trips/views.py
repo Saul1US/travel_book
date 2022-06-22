@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin, ModelFormMixin
 from django.urls import reverse_lazy
 from django.db.models import Q
@@ -46,10 +47,14 @@ class TripListView(generic.ListView, ModelFormMixin):
         return context
         
 
-class DeleteTripView(generic.DeleteView):
+class DeleteTripView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Trip
     template_name = 'trips/delete_trip.html'
     success_url = reverse_lazy('trip_list')
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.owner == self.request.user
 
 
 class PlaceListView(generic.ListView):
@@ -96,7 +101,7 @@ class PlaceDetailView(generic.DetailView, FormMixin):
         return super().form_valid(form)
 
 
-class AddPlaceView(generic.CreateView):
+class AddPlaceView(LoginRequiredMixin, generic.CreateView):
     model = Place
     template_name = 'trips/add_place.html'
     fields = '__all__'
@@ -105,27 +110,51 @@ class AddPlaceView(generic.CreateView):
         form.save()
         return redirect('place_list')
 
+    # def test_func(self):
+    #     obj = self.get_object()
+    #     return obj.trip.owner == self.request.user
 
-class EditPlaceView(generic.UpdateView):
+
+class EditPlaceView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Place
     template_name = 'trips/edit_place.html'
     fields = '__all__'
     pk_url_kwarg = 'pk'
     success_url = reverse_lazy('place_list')
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.trip.owner == self.request.user
 
-class DeletePlaceView(generic.DeleteView):
+
+class DeletePlaceView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Place
     template_name = 'trips/delete_place.html'
     success_url = reverse_lazy('place_list')
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.trip.owner == self.request.user
 
-class AddImagesView(generic.CreateView):
-    model = PlaceImage
-    template_name = 'trips/add_images.html'
-    fields = '__all__'
-    pk_url_kwarg = 'pk'
-    success_url = reverse_lazy('place_list')
+
+class UserPlaceListView(LoginRequiredMixin, generic.ListView):
+    model = Place
+    context_object_name = 'places'
+    template_name = 'trips/user_place_list.html'
+
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(trip__owner=self.request.user)
+
+# class AddImagesView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
+#     model = PlaceImage
+#     template_name = 'trips/add_images.html'
+#     fields = '__all__'
+#     pk_url_kwarg = 'pk'
+#     success_url = reverse_lazy('place_list')
+
+#     def test_func(self):
+#         obj = self.get_object()
+#         return obj.owner == self.request.user
 
 
     # def get_initial(self):

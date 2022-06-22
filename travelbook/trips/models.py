@@ -18,15 +18,25 @@ class Place(models.Model):
     date = models.DateField(null=True, blank=True)
     trip = models.ForeignKey(Trip, null=False, blank=False, on_delete=models.CASCADE, related_name='places')
     content = HTMLField(blank=True, null=True)
-    image = models.ImageField(blank=True, null=True)
- 
+    image = models.ImageField(upload_to = 'trips/images/', blank=True, null=True)
+
+    def save(self):
+        super().save()
+
+        img = Image.open(self.image.path)
+
+        if img.height > 400 or img.width > 400:
+            new_img = (400, 400)
+            img.thumbnail(new_img)
+            img.save(self.image.path)
+
     def __str__(self):
         return self.name
 
  
 class PlaceImage(models.Model):
     place = models.ForeignKey(Place, default=None, on_delete=models.CASCADE)
-    images = models.FileField(upload_to = 'trips/images/')
+    images = models.FileField(upload_to = 'trips/images/', blank=True, null=True)
 
     def save(self):
         super().save()

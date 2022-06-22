@@ -10,6 +10,7 @@
         <img src="{{p.images.url}}">
     {% endfor %}
 </div>
+{% if place.trip.owner == request.user %}
 <div class="FieldWrapper">
     <form method="post" action="" enctype="multipart/form-data">
         {% csrf_token%}
@@ -17,7 +18,9 @@
         <button class="btn btn-dark my-2" type="submit">Add image</button>
     </form>
 </div>
+{% endif %}
 <br>
+<a href="{% url 'edit_place' place.id %}" class="btn btn-primary btn-md">Edit</a>
 <a href="{% url 'delete_place' place.id %}" class="btn btn-danger btn-md">Delete Place</a>
  
 {% endblock content %}
