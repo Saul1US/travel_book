@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin, ModelFormMixin
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.views import generic
@@ -11,15 +12,21 @@ from .forms import TripForm, PlaceDescriptionForm, PlaceImageForm
 def index(request):
     return render(request, 'trips/index.html')
 
+@login_required
 def home(request):
-    trips_count = Trip.objects.all().count()
-    places_count = Place.objects.all().count()
+    trips_count = Trip.objects.filter(owner=request.user).count()
+    places_count = Place.objects.filter(trip__owner=request.user).count()
     return render(request, 'trips/home.html', {'trips_count':trips_count, 'places_count':places_count})
 
+@login_required
 def trip(request, id):
     trip = get_object_or_404(Trip, id=id)
     return render(request, 'trips/trip.html', {'trip':trip})
 
+# class TripView(generic.ListView):
+#     model = Place
+#     context_object_name = 'trp'
+#     template_name = 'trips/trip.html'
 
 class TripListView(generic.ListView, ModelFormMixin):
     model = Trip

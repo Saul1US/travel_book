@@ -10,8 +10,9 @@
     {% endfor %}
 </div>
 <br>
-<a href="{% url 'delete_trip' trip.id %}" class="btn btn-danger btn-md">Delete Trip</a>
 <br>
+{% if trip.owner == request.user %}
+<a href="{% url 'delete_trip' trip.id %}" class="btn btn-danger btn-md">Delete Trip</a>
+{% endif %}
 <a href="{% url 'add_place' %}" class="btn btn-primary btn-md">Add Place</a>
-
 {% endblock content %}
