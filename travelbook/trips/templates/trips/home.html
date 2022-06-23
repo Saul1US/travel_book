@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
-
 {% block content %}
+{% load static %}
 <h3>Trips made: {{ trips_count }}</h3>
 <h3>Places visited: {{ places_count }}</h3>
 <hr>
 <h3>Planning new trip?</h3>
+<div class="carousel-inner">
+    <img src="{%static 'trips/img/water.jpeg' %}" style="height:650px;" class="testi-overly d-block w-100" alt="sliderImg">
+</div>
 {% endblock content %}

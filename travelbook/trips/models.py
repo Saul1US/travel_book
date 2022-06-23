@@ -20,15 +20,15 @@ class Place(models.Model):
     content = HTMLField(blank=True, null=True)
     image = models.ImageField(upload_to = 'trips/images/', blank=True, null=True)
 
-    def save(self):
-        super().save()
+    # def save(self):
+    #     super().save()
 
-        img = Image.open(self.image.path)
+    #     img = Image.open(self.image.path)
 
-        if img.height > 400 or img.width > 400:
-            new_img = (400, 400)
-            img.thumbnail(new_img)
-            img.save(self.image.path)
+    #     if img.height > 300 or img.width > 300:
+    #         new_img = (300, 300)
+    #         img.thumbnail(new_img)
+    #         img.save(self.image.path)
 
     def __str__(self):
         return self.name

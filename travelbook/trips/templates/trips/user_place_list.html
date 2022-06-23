@@ -21,9 +21,9 @@
           <h4 class="card-title">{{ p.name }}</h4>
           <p class="card-text">{{ p.date }}</p>
           <p class="card-text">{{ p.content | safe }}</p>
-          <a href="{% url 'place_details' p.id %}" class="btn btn-primary btn-md">View</a>
-          <a href="{% url 'edit_place' p.id %}" class="btn btn-primary btn-md">Edit</a>
-          <a href="{% url 'delete_place' p.id %}" class="btn btn-danger btn-md">Delete</a>
+          <a href="{% url 'place_details' p.id %}" class="btn btn-outline-primary btn-md">View</a>
+          <a href="{% url 'edit_place' p.id %}" class="btn btn-outline-primary btn-md">Edit</a>
+          <a href="{% url 'delete_place' p.id %}" class="btn btn-outline-danger btn-md">Delete</a>
         </div>
       </div>
     </div>
