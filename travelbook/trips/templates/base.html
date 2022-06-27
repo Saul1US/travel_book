@@ -18,10 +18,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">{% block navigation %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'trip_list' %}">Trips</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'place_list' %}">Places</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'my_place_list' %}">My Places</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">{% trans "Home" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'trip_list' %}">{% trans "Trips" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'place_list' %}">{% trans "Places" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'my_place_list' %}">{% trans "My Places" %}</a></li>
                     {% endblock navigation %}</ul>
                     <form class="form-inline" action="{% url 'place_list' %}" method="get" class="mb-3">
                         <input type="text" name="search" value="{{ request.GET.search }}" placeholder="{% trans 'search places' %}" class="form-control bg-dark text-light">

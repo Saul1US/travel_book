@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-{% load static %}
+{% load static i18n %}
 <head>
     <link rel="stylesheet" href="{% static 'trips/css/style2.css' %}">
 </head>
@@ -10,8 +10,8 @@
     "
 >
     <div class="overlay">
-        <h1 class="text-white">Trips made: {{ trips_count }}</h1>
-        <h1 class="text-white">Places visited: {{ places_count }}</h1>
+        <h1 class="text-white">{% trans "Trips made" %}: {{ trips_count }}</h1>
+        <h1 class="text-white">{% trans "Places visited" %}: {{ places_count }}</h1>
     </div>
 </div>
 {% endblock content %}

@@ -9,7 +9,7 @@ class UserProfile(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='user_profile',
-        verbose_name=_('vartotojas'),
+        verbose_name=_('user_profile'),
     )
     picture = models.ImageField('nuotrauka', upload_to='user_profile/pictures', null=True, blank=True)
 
