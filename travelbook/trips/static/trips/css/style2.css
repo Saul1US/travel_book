@@ -11,7 +11,6 @@ body {
     position: relative;
     background-size: cover;
     background-position: 50% 50%;
-    background-image: url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80");
   }
   
   .overlay {
@@ -20,7 +19,7 @@ body {
     width: 100%;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.2);
     color: white;
     display: flex;
     align-items: center;

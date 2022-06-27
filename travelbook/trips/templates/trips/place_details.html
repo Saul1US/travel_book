@@ -1,14 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-{% load crispy_forms_tags %}
+{% load static crispy_forms_tags %}
 
-<div>
-    <h1 class="card-title">{{ place.trip.title }}</h1>
-    <h4 class="card-title">{{ place.name }}</h4>
-        <p>{{ place.content | safe }}</p>
-    {% for p in photos %}
-        <img src="{{p.images.url}}">
-    {% endfor %}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'trips/css/style3.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
+</head>
+<div class="photo-gallery">
+    <div class="container">
+        <div class="intro">
+            <h2 class="text-center">{{ place.trip.title }}</h2>
+            <h3 class="text-center">{{ place.name }}</h3>
+            <p class="text-center">{{ place.content | safe }} </p>
+        </div>
+        <div class="row photos">
+            {% for p in photos %}
+                <div class="col-sm-6 col-md-4 col-lg-3 item">
+                    <a href="{{p.images.url}}" data-lightbox="photos"><img class="img-fluid" src="{{p.images.url}}"></a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% if place.trip.owner == request.user %}
 <div class="FieldWrapper">
@@ -22,5 +35,8 @@
 <br>
 <a href="{% url 'edit_place' place.id %}" class="btn btn-primary btn-md">Edit</a>
 <a href="{% url 'delete_place' place.id %}" class="btn btn-danger btn-md">Delete Place</a>
- 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
 {% endblock content %}
