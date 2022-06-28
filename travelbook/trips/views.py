@@ -23,10 +23,6 @@ def trip(request, id):
     trip = get_object_or_404(Trip, id=id)
     return render(request, 'trips/trip.html', {'trip':trip})
 
-# class TripView(generic.ListView):
-#     model = Place
-#     context_object_name = 'trp'
-#     template_name = 'trips/trip.html'
 
 class TripListView(generic.ListView, ModelFormMixin):
     model = Trip
@@ -117,10 +113,6 @@ class AddPlaceView(LoginRequiredMixin, generic.CreateView):
         form.save()
         return redirect('place_list')
 
-    # def test_func(self):
-    #     obj = self.get_object()
-    #     return obj.trip.owner == self.request.user
-
 
 class EditPlaceView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Place
@@ -151,22 +143,3 @@ class UserPlaceListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(trip__owner=self.request.user)
-
-# class AddImagesView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
-#     model = PlaceImage
-#     template_name = 'trips/add_images.html'
-#     fields = '__all__'
-#     pk_url_kwarg = 'pk'
-#     success_url = reverse_lazy('place_list')
-
-#     def test_func(self):
-#         obj = self.get_object()
-#         return obj.owner == self.request.user
-
-
-    # def get_initial(self):
-    #     initial = super().get_initial()
-    #     initial['trip'] = self.request.GET.get('trip_id')
-    #     initial['name'] = self.request.GET.get('name')
-    #     return initial
-    
